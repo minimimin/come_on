@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="{% url "testapp:second" %}" method='GET'>
+    <!--method 방법에는 GET과 POST가 있고, 
+      GET은 단순 화면만 보여주는? 단순 정보만 보내는 느낌,
+    POST는 그 정보들을 가지고 수정할 수 있도록, 처리할 수 있도록 하는 거
+  POST를 쓸 때는 {% csrf_token %}이 필요하다!-->
+  <!--action에는 이걸 어디에 쓸건지라 어디로 보낸다(전송된다)가 들어가면 된다..!-->
+  <!--url 대신 아무것도 안쓰면 현재 페이지의 url로 보내지는 것!-->
+  <!--url 태그 쓰면 특정 앱의 특정 경로 주소로 보내게 되는 것!-->
+  <!--그냥 url태그 없이 주소만 적어도 상관 없음
+    (/testapp/second/처럼 혹은 https://www.naver.com/뭐 이런거)-->
+    <div>
+    <label for="id">이곳은 input값의 이름을 달아주는 곳입니다. 
+      <br> for이 어디 input id를 참조하는 지 알아보는 거에요.</label>
+    <input type="text" id='id' name='name'>
+    <!--글을 입력할 수 있는 input-->
+    <!--여기에 name=''을 추가하면 외부에서 사용하는 값이 지정되는 거죠!-->
+  </div>
+  <div>
+    <label for="password">비밀번호는 자동으로  비밀번호 입력하도록 떠요.</label>
+    <input type="password" id='password' name='bimil'>
+    <input type="submit" value='이게 보내는 것! input 통해서 보내기'>
+    </div>
+  </form>
+</body>
+</html>
