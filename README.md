@@ -15,6 +15,12 @@
     - 템플릿에서 form을 이용해 각 요소 받아오기
     - 받아온 요소를 가지고 다른 함수+템플릿에서 사용하기
     - url에 변수 설정하여 함수+템플릿에서 이용하기
+    - model을 통한 DB관리
+         - models.py에 model 클래스 작성(DB에 저장될 테이블 만들기)
+         - 변경사항 반영하기(migrations)
+         - admin계정 생성하기(Automatic admin interface)
+         - admin.py에 model 클래스 등록하기 
+    - QuerySet API를 활용하여 DB 데이터 CRUD(저장, 조회, 수정, 삭제)하기
     - 
   
   2) 심화

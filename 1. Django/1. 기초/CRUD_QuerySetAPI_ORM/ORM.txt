@@ -1,0 +1,24 @@
+ORM
+: Object-Relational-Mapping
+: 객체 지향 프로그래밍 언어를 사용하여 호환되지 않는 유형의 시스템 간 데이터를 변환하는 기술
+
+QuerySet API
+: ORM에서 데이터를 검색, 필터링, 정렬 및 그룹화하는데 사용하는 도구
+: API를 사용해 python 코드로 데이터 처리
+: python의 모델 클래스와 인스턴스를 활용해 DB에 데이터를 CRUD 하는 것
+
+Query
+: DB에 특정한 데이터를 보여달라고 "요청"하는 것
+: 쿼리문 작성 = 원하는 데이터를 얻기 위해 DB에 요청 보낼 코드 작성
+
+QuerySet
+: DB에게서 전달 "받은" 객체 목록(순회 가능 데이터 모음)
+: python 코드(Query문)가 ORM을 통해 DB 전달, 
+   DB 응답 데이터를 ORM이 QuerySet으로 변환하여 전달
+
+
+QuerySet API 사용 전 사전 준비
+: settings.py에 django_extensions 앱 등록하기 
+
+:(참고) django python shell로 테스트하기
+(바로바로 확인할 수 있는 환경 구성)

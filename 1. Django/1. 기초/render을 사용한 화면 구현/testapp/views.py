@@ -1,14 +1,19 @@
 from django.shortcuts import render
 
-# Create your views here.
+# -------------------------------------------------------------------------------------
+
 def index(request):
     # 무조건 request를 매개변수로 받아야한다.
     # 거기에 추가로 원하는 거(예) pk 등) 더 받아 올 수 있음
     return render(request, 'testapp/index.html')
     # 매개변수, 이동할 템플릿, 딕셔너리(이거는 선택사항)
 
+# -------------------------------------------------------------------------------------
+
 def first(request):
     return render(request, 'testapp/first.html')
+
+# -------------------------------------------------------------------------------------
 
 def second(request):
     # 다른 곳에서 받아오는 건 여기다 어떤 거 받아올 지 적어줘야해!!!!!!
@@ -24,6 +29,8 @@ def second(request):
     }
     return render(request, 'testapp/second.html', content)
 
+# -------------------------------------------------------------------------------------
+
 def third(request, sam):
     # url에서 받아온 변수를 인자로 받음
     name = sam
@@ -31,3 +38,5 @@ def third(request, sam):
         'name':name,
 }
     return render(request, 'testapp/third.html', content)
+
+# -------------------------------------------------------------------------------------
