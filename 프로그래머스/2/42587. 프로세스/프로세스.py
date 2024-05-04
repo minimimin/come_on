@@ -16,4 +16,3 @@ def solution(priorities, location):
         else:
             a = im_que.pop(0)
             im_que.append(a)
-    return answer
