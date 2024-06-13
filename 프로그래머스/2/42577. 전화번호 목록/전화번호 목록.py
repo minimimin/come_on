@@ -1,9 +1,8 @@
 def solution(phone_book):
-    temp_book = sorted(phone_book)
-    length = len(phone_book)
-    for i in range(length-1):
-        i_len = len(temp_book[i])
-        if temp_book[i] in temp_book[i+1][:i_len]:
+    temp_books = set(phone_book)
+    for num in phone_book:
+        length = len(num)
+        for index in range(length):
+            if num[0:index] in temp_books:
                 return False
-    else:
-        return True
+    return True
