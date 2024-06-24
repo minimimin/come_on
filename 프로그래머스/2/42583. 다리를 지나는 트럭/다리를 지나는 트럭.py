@@ -14,11 +14,12 @@ def solution(bridge_length, weight, truck_weights):
     while trucks:
         total_weight += bridge.popleft()
         count += 1
-        if total_weight >= trucks[0]:
-            truck = trucks.popleft()
+        truck = trucks.popleft()
+        if total_weight >= truck:
             bridge.append(truck)
             total_weight -= truck
         else:
+            trucks.appendleft(truck)
             bridge.append(0)
     if not bridge == deque([0 for _ in range(bridge_length)]):
         while bridge:
