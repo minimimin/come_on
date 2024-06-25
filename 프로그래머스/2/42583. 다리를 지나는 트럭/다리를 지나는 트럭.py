@@ -1,25 +1,67 @@
-# 정해진 순서로 다리 건너기
-# 전체 다리 길이, 올라갈 수 있는 무게, 대기트럭
-# 건너는 데 다리 길이 초, 올라가는 건 1초당 하나씩! 다 지나오면 1초 더!
+import collections
 
-from collections import deque
+DUMMY_TRUCK = 0
+
+
+class Bridge(object):
+
+    def __init__(self, length, weight):
+        self._max_length = length
+        self._max_weight = weight
+        self._queue = collections.deque()
+        self._current_weight = 0
+
+    def push(self, truck):
+        next_weight = self._current_weight + truck
+        if next_weight <= self._max_weight and len(self._queue) < self._max_length:
+            self._queue.append(truck)
+            self._current_weight = next_weight
+            return True
+        else:
+            return False
+
+    def pop(self):
+        item = self._queue.popleft()
+        self._current_weight -= item
+        return item
+
+    def __len__(self):
+        return len(self._queue)
+
+    def __repr__(self):
+        return 'Bridge({}/{} : [{}])'.format(self._current_weight, self._max_weight, list(self._queue))
+
 
 def solution(bridge_length, weight, truck_weights):
-    if len(truck_weights) == 1:
-        return bridge_length + 1
-    bridge = deque([0] * bridge_length)
-    all_trucks = len(truck_weights)
-    trunck_num = 0
-    total_weight = weight
+    bridge = Bridge(bridge_length, weight)
+    trucks = collections.deque(w for w in truck_weights)
+
+    for _ in range(bridge_length):
+        bridge.push(DUMMY_TRUCK)
+
     count = 0
-    while trunck_num < all_trucks:
-        total_weight += bridge.popleft()
-        count += 1
-        truck = truck_weights[trunck_num]
-        if total_weight >= truck:
-            bridge.append(truck)
-            total_weight -= truck
-            trunck_num += 1
+    while trucks:
+        bridge.pop()
+
+        if bridge.push(trucks[0]):
+            trucks.popleft()
         else:
-            bridge.append(0)
-    return count + bridge_length
+            bridge.push(DUMMY_TRUCK)
+
+        count += 1
+
+    while bridge:
+        bridge.pop()
+        count += 1
+
+    return count
+
+
+def main():
+    print(solution(2, 10, [7, 4, 5, 6]), 8)
+    print(solution(100, 100, [10]), 101)
+    print(solution(100, 100, [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]), 110)
+
+
+if __name__ == '__main__':
+    main()
