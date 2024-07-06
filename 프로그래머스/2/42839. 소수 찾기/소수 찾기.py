@@ -10,11 +10,6 @@ def findSosu(num):
 
 def solution(numbers):
     global answer
-    # johap = set()
-    # for i in range(len(numbers)):
-    #     for j in range(i, len(numbers)):
-    #         num = int(numbers[i]+numbers[j])
-    # num = int(numbers)
     n = len(numbers)
     visited=[0 for _ in range(n)]
     check = set()
@@ -40,7 +35,5 @@ def solution(numbers):
         visited[i]=1
         sunyeol(temp,n)
         visited[i]=0
-    
-    
-    
+
     return answer
