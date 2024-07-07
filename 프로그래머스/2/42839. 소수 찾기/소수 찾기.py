@@ -1,39 +1,32 @@
-answer = 0
-def findSosu(num):
-    global answer
-    for i in range(1, num):
-        if i != 1 and num % i == 0:
-            return 0
-    if num>1:
-        answer +=1
-    return 1
+# 주어진 숫자들로 조합만들고
+# 소수가 몇 개인지 판별
+from itertools import permutations
+import math
+
+def making_num(number):
+    find_all_johap = set()
+    for length in range(1, len(number)+1):
+        num_johap = permutations(number, length)
+        for maked_number in num_johap:
+            find_all_johap.add(int("".join(maked_number)))
+    return find_all_johap
+
+def sosu(num):
+    if num < 2:
+        return False
+    elif num == 2:
+        return True
+    else:
+        jegobgeun = int(math.sqrt(num)) + 1
+        for i in range(2, jegobgeun):
+            if num % i == 0:
+                return False
+        return True
 
 def solution(numbers):
-    global answer
-    n = len(numbers)
-    visited=[0 for _ in range(n)]
-    check = set()
-    def sunyeol(result,n):
-        temp2 = int(result)
-        if temp2 != 0:
-            if not temp2 in check:
-                findSosu(temp2)
-                check.add(temp2)
-        for i in range(n):
-            if visited[i] == 0:
-                temp3 = ""
-                temp3 += result
-                temp3 += numbers[i]
-                visited[i] =1
-                sunyeol(temp3,n)
-                visited[i] =0
-        
-        
-    for i in range(n):
-        temp =""
-        temp += numbers[i]
-        visited[i]=1
-        sunyeol(temp,n)
-        visited[i]=0
-
+    answer = 0
+    all_number = making_num(numbers)
+    for num in all_number:
+        if sosu(num):
+            answer += 1
     return answer
