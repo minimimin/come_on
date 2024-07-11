@@ -1,6 +1,5 @@
 def solution(numbers):
-    string_num = list(map(str, numbers))
-    string_num.sort(key=lambda num : num*3, reverse=True)
-    if string_num[0] == '0':
-        return '0'
-    return "".join(string_num)
+    num_str = list(map(str, numbers))
+    num_str.sort(reverse=True, key=lambda x : x*3)
+    answer = "".join(num_str)
+    return answer if answer[0] != "0" else "0"
