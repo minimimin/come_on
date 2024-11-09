@@ -1,0 +1,8 @@
+-- 부모의 형질 과 자식의 형질 & 했을때 부모값 나오면 모두 보유한 것
+-- TEST 케이스와 문제 예시는 동일
+-- 
+SELECT C.ID, C.GENOTYPE, P.GENOTYPE AS PARENT_GENOTYPE
+FROM ECOLI_DATA C, ECOLI_DATA P
+WHERE C.PARENT_ID = P.ID
+    AND (P.GENOTYPE & C.GENOTYPE = P.GENOTYPE)
+ORDER BY ID
