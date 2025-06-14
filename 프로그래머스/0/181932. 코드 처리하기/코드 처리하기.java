@@ -1,17 +1,16 @@
 class Solution {
     public String solution(String code) {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
         int mode = 0;
-        int codeLen = code.length();
         
-        for(int idx = 0;idx < codeLen; idx++){
-            char codeIndex = code.charAt(idx);
-            if (codeIndex == '1'){
+        for(int idx = 0;idx < code.length(); idx++){
+            char nowChar = code.charAt(idx);
+            if (nowChar == '1'){
                 mode = (mode == 1) ? 0 : 1;
                 continue;
             }
-            ret = (idx%2 == mode) ? ret+codeIndex : ret;
+            if (idx % 2 == mode){ret.append(nowChar);}
         }
-        return (ret == "")? "EMPTY" : ret;
+        return (ret.length() == 0) ? "EMPTY" : ret.toString();
     }
 }
