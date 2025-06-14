@@ -10,11 +10,7 @@ class Solution {
                 mode = (mode == 1) ? 0 : 1;
                 continue;
             }
-            if (mode == 0){
-                ret = (idx%2 == 0)? ret+codeIndex : ret;
-            }else{
-                ret = (idx%2 == 0)? ret : ret + codeIndex;
-            }
+            ret = (idx%2 == mode) ? ret+codeIndex : ret;
         }
         return (ret == "")? "EMPTY" : ret;
     }
