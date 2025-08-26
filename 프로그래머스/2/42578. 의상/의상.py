@@ -1,14 +1,14 @@
 from collections import defaultdict
 
 def solution(clothes):
-    # 의상 종류에 따른 의상 이름 리스트 딕셔너리
-    dic_clothes = defaultdict(int)
-    for name, category in clothes:
-        dic_clothes[category] += 1
-
-    # 종류별 전체 옷이 몇 벌씩 있는지
-    # 경우의 수에 따라 (각 요소+1)한걸 전부 곱한 후 -1 해주면 됨
+    # 각 행은 [이름, 종류]로 구성
+    # 종류별로 몇 개 있는지 카운트
+    # 종류별로 (1(안입기)+개수)만큼의 선택지 있음 => 각 선택지마다 곱하기
+    # 전부 다 안입을 수는 없음 = 1 빼기
+    count_clothes = defaultdict(int)
+    for _, t in clothes:
+        count_clothes[t] += 1
     answer = 1
-    for count in dic_clothes.values():
-        answer *= (count + 1)
-    return (answer - 1)
+    for ty in count_clothes:
+        answer *= (count_clothes[ty]+1)
+    return answer - 1
