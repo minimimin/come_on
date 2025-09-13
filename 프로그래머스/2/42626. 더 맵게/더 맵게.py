@@ -1,15 +1,17 @@
-import heapq
+from heapq import heapify, heappush, heappop
 
 def solution(scoville, K):
+    heapify(scoville)
     count = 0
-    hot_food = len(scoville)
-    heapq.heapify(scoville)
-    while hot_food > 1:
-        first = heapq.heappop(scoville)
-        hot_food -= 1
-        if first >= K:
+    while scoville:
+        not_spicy_fir = heappop(scoville)
+        if not_spicy_fir >= K:
             return count
-        second = heapq.heappop(scoville)
-        heapq.heappush(scoville, first + second*2)
+        if not scoville:
+            return -1
+        not_spicy_sec = heappop(scoville)
+        heappush(scoville, not_spicy_fir+not_spicy_sec*2)
         count += 1
-    return count if heapq.heappop(scoville) >= K else -1
+
+    if not scoville:
+        return -1
