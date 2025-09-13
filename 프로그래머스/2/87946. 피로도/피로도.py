@@ -1,18 +1,22 @@
 from itertools import permutations
 
-def go_dungeon(order, fatigue, dungeons):
-    defeat_dungeon = 0
-    for sunseo in order:
-        if fatigue >= dungeons[sunseo][0]:
-            fatigue -= dungeons[sunseo][1]
-            defeat_dungeon += 1
-        else:
-            return defeat_dungeon
-    return defeat_dungeon
-    
-
 def solution(k, dungeons):
-    dungeon_cnt = len(dungeons)
-    can_go_sunyeol = permutations([i for i in range(dungeon_cnt)], dungeon_cnt)
-    answer = max(list(map(lambda order : go_dungeon(order, fatigue=k, dungeons=dungeons), can_go_sunyeol)))
-    return answer if answer > 0 else 0
+    max_count = 0
+    all_dungeons = len(dungeons)
+    soonyeol = list(permutations([i for i in range(all_dungeons)], all_dungeons))
+    for path in soonyeol:
+        if max_count >= all_dungeons:
+            return max_count
+        count_dungeons = 0
+        now_k = k
+        for dungeon in path:
+            if dungeons[dungeon][0] <= now_k:
+                now_k -= dungeons[dungeon][1]
+                count_dungeons += 1
+            else:
+                if count_dungeons > max_count:
+                    max_count = count_dungeons
+                break
+        if count_dungeons > max_count:
+            max_count = count_dungeons 
+    return max_count
