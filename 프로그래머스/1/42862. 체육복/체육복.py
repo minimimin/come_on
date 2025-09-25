@@ -1,20 +1,26 @@
-from copy import deepcopy
-
 def solution(n, lost, reserve):
-    count = n # 몇 명이 체육복 입는지 체크
-    lost.sort()
-    check = deepcopy(lost)
+    all_students = [1 for _ in range(n)]
     for i in lost:
-        for k in [0, -1, 1]:
-            if (i+k) in reserve:
-                if (i+k) in lost and k!= 0:
-                    continue
-                reserve.remove(i+k)
-                check.remove(i)
-                break
-    return count - len(check)
-            
-    # n : 전체 학생 수
-    # lost : 체육복 잃어버린 학생 수(앞뒤 번호만 빌릴 수 있음)
-    # reserve : 여분의 체육복이 있는 학생 수
-    # 전체 몇 명이 체육복 입을 수 있는지 고르기    
+        all_students[i-1] = 0
+    for j in reserve:
+        all_students[j-1] += 1
+    
+    if all_students[0] == 0 and all_students[1] > 1:
+        all_students[0] += 1
+        all_students[1] -= 1
+        
+    for student_num in range(1,n-1):
+        if not all_students[student_num]:
+            if all_students[student_num-1] > 1:
+                all_students[student_num-1] -= 1
+                all_students[student_num] += 1
+            elif all_students[student_num+1] > 1:
+                all_students[student_num+1] -= 1
+                all_students[student_num] += 1
+
+    if not all_students[n-1] and all_students[n-2] > 1:
+        all_students[n-1] += 1
+        all_students[n-2] -= 1
+    
+    answer = len(list(filter(lambda std:std>0, all_students)))
+    return answer
