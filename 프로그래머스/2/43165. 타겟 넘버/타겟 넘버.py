@@ -1,15 +1,14 @@
-count = 0
-
-def DFS(calcul, point, numbers, target):
-    global count
-    if point == len(numbers):
-        if target == calcul:
-            count += 1
-        return
-    DFS(calcul + numbers[point], point+1, numbers, target)
-    DFS(calcul - numbers[point], point+1, numbers, target)
+from itertools import product
 
 def solution(numbers, target):
-    global count
-    DFS(0, 0, numbers, target)
+    count = 0
+    for cal_list in product(['+','-'], repeat=len(numbers)):
+        temp_sum = 0
+        for i in range(len(numbers)):
+            if cal_list[i] == '+':
+                temp_sum += numbers[i]
+            else:
+                temp_sum -= numbers[i]
+        if temp_sum == target:
+            count += 1
     return count
