@@ -1,29 +1,24 @@
-# 셋이 맞춘 점수 합계 구함..ㅎ...문제 똑바로 읽자!!
-# 가장 많은 문제를 맞힌 사람이 누구인지 구하기!!
 def solution(answers):
-    answers_len = len(answers)
-    collect_ans = {1:0, 2:0, 3:0}
-    # 1번 1~5(5) 반복 / 2번 2,1,2,3,2,4,2,5(8) 반복 / 3번 3,3,1,1,2,2,4,4,5,5(10) 반복
-    one_ans = [1,2,3,4,5]
-    two_ans = [2,1,2,3,2,4,2,5]
-    three_ans = [3,3,1,1,2,2,4,4,5,5]
-    # 각 수포자들이 전체 제출한 답안
-    fir_supo = one_ans*(answers_len//len(one_ans)) + one_ans[0:answers_len%len(one_ans)]
-    sec_supo = two_ans*(answers_len//len(two_ans)) + two_ans[0:answers_len%len(two_ans)]
-    three_supo = three_ans*(answers_len//len(three_ans)) + three_ans[0:answers_len%len(three_ans)]
+    # 전체 정답 길이
+    all_answer = len(answers)
+    # 각 수포자들 답지
+    num_one = [1,2,3,4,5]
+    num_two = [2,1,2,3,2,4,2,5]
+    num_three = [3,3,1,1,2,2,4,4,5,5]
+    # 수포자들 정답개수
+    cnt = [0,0,0]
     # 채점
-    for num in range(answers_len):
-        if fir_supo[num] == answers[num]:
-            collect_ans[1] += 1
-        if sec_supo[num] == answers[num]:
-            collect_ans[2] += 1
-        if three_supo[num] == answers[num]:
-            collect_ans[3] += 1
-    # 최종 점수비교 = 제일 큰 값을 우선 구해놓고, 그거랑 비교해서 같으면 정답에 넣기!
-    max_collect = max(collect_ans.values())
-    print(max_collect)
-    answer = []
-    for supo in collect_ans:
-        if collect_ans[supo] == max_collect:
-            answer.append(supo)
-    return answer
+    for answer_num in range(all_answer):
+        if answers[answer_num] == num_one[answer_num%5]:
+            cnt[0] += 1
+        if answers[answer_num] == num_two[answer_num%8]:
+            cnt[1] += 1
+        if answers[answer_num] == num_three[answer_num%10]:
+            cnt[2] += 1
+    # 누가 제일 많이 맞췄는지 확인
+    winner = []
+    big_point = max(cnt)
+    for supo in range(3):
+        if cnt[supo] == big_point:
+            winner.append(supo+1)
+    return winner
