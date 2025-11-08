@@ -34,7 +34,8 @@ def solution(N, stages):
     # stage_per.sort(reverse=True)
     # print(stage_per)
     # answer = [stg for per, stg in stage_per]
-    stage_per.sort(key=lambda x: x[0], reverse=True)
-    return [stg for per, stg in stage_per]
+    # stage_per.sort(key=lambda x: x[0], reverse=True)
+    # return [stg for per, stg in stage_per]
+    return [key for per,key in sorted(stage_per, key=lambda a :a[0], reverse=True)]
     # lambda식 활용 <= 딕셔너리 사용하기!!
     # return sorted(fail_percent, key=lambda x : fail_percent[x], reverse=True)
