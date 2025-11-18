@@ -1,29 +1,25 @@
-# 작업의 진도(<100), 작업의 개발속도(<=100)
-# 각 배포마다 몇 개의 기능이 배포되는지?
-# 개발 순서는 상관없지만, 배포는 앞에 거 배포될때 뒤에꺼 배포될 수 있음
-# 배포는 하루 한 번만, 하루 끝에!
-
-# 하루에 각각 speeds만큼 +하는데, 100이 되면 멈추고, 100이 안되면 계속 더해주기
-# 배포할때(함수 마지막에) 100인거 빼낼건데 맨 앞이 100이 아니면 뒤에거도 못꺼냄
-# 앞에거부터 함수에 담아놓기
-
 from collections import deque
 
-def solution(progresses, speeds):    
-    answer = deque()
-    while progresses:
-        count = 0
-        for i in range(len(progresses)):
-            if progresses[i] == 100:
-                continue
-            elif progresses[i] + speeds[i] >= 100:
-                progresses[i] = 100
+def solution(progresses, speeds):
+    # 진도가 100일때 배포
+    # 개발은 먼저 되더라도 앞 기능이 배포될때 배포되어야 함
+    # 작업순서별 진도, 작업 개발속도
+    # 각 배포마다 배포되는 기능 수 반환
+    finish_pg = []
+    new_progresses = deque(progresses)
+    new_speeds = deque(speeds)
+    while new_progresses:
+        temp_cnt = 0
+        while new_progresses:
+            if new_progresses[0] >= 100:
+                new_progresses.popleft()
+                new_speeds.popleft()
+                temp_cnt += 1
             else:
-                progresses[i] += speeds[i]
-        while progresses and progresses[0] == 100:
-            progresses.pop(0)
-            speeds.pop(0)
-            count += 1
-        if count > 0:
-            answer.append(count)
-    return list(answer)
+                break
+        if temp_cnt:
+            finish_pg.append(temp_cnt)
+        if new_speeds:
+            for i in range(len(new_speeds)):
+                new_progresses[i] += new_speeds[i]
+    return finish_pg
