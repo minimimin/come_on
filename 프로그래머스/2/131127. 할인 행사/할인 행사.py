@@ -7,9 +7,6 @@ def solution(want, number, discount):
     for i in range(len(want)):
         wants[want[i]] = number[i]
     for idx in range(len(discount)-9):
-        check = Counter(discount[idx:idx+10])
-        # for cnt_idx in range(idx, idx+10):
-        #     check[discount[cnt_idx]] += 1
-        if wants == check:
+        if wants == Counter(discount[idx:idx+10]):
             answer += 1
     return answer
