@@ -1,10 +1,10 @@
 from collections import defaultdict
 
 def solution(want, number, discount):
-    wants = defaultdict(int)
     answer = 0
-    for prod_idx in range(len(want)):
-        wants[want[prod_idx]] = number[prod_idx]
+    wants = {}
+    for i in range(len(want)):
+        wants[want[i]] = number[i]
     for idx in range(len(discount)-9):
         check = defaultdict(int)
         for cnt_idx in range(idx, idx+10):
