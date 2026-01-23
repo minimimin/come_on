@@ -6,7 +6,7 @@ def solution(want, number, discount):
     for idx in range(len(discount)-9):
         temp_wants = wants.copy()
         for ten in range(10):
-            if discount[idx+ten] in temp_wants.keys() and temp_wants[discount[idx+ten]] >= 1:
+            if discount[idx+ten] in temp_wants and temp_wants[discount[idx+ten]] >= 1:
                 temp_wants[discount[idx+ten]] -= 1
         else:
             if sum(temp_wants.values()) == 0:
