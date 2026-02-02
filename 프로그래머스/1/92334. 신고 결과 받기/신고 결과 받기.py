@@ -1,26 +1,19 @@
 from collections import defaultdict
 
 def solution(id_list, report, k):
-    # 한 번에 한 유저 신고, 동일한 유저 신고 횟수는 1회
-    # k번 이상 신고되면 이용 정지 => 신고한 모든 유저는 메일로 안내
-    # 각 유저별로 메일 받은 횟수 return
-    # 1) defaultdict으로 list형(각 유저별 신고한 명단), int형(신고 당한 횟수)
-    # 2) 0번째 append 1번째, 1번쨰 += 1 전체 다 넣고 int dict에서 k 이상인 명단 추출(list화 or set에 넣어도 됨)
-    # 3) id 순서대로 in 확인 후 cnt 넣기
-    singo = defaultdict(set)
-    report_cnt = defaultdict(set)
-    singo_list = []
+    singo_set = defaultdict(set)
+    singo_cnt = defaultdict(int)
+    find_mail_id = {i:0 for i in id_list}
     answer = []
-    for report_con in report:
-        singo[report_con.split()[0]].add(report_con.split()[1])
-        report_cnt[report_con.split()[1]].add(report_con.split()[0])
-    for man in report_cnt:
-        if len(report_cnt[man]) >= k:
-            singo_list.append(man)
-    for id_singo in id_list:
-        cnt = 0
-        for find_singo in singo[id_singo]:
-            if find_singo in singo_list:
-                cnt += 1
-        answer.append(cnt)
+    for singo in set(report):
+        pihae, gahae = singo.split()
+        singo_set[pihae].add(gahae)
+        singo_cnt[gahae] += 1
+    for check in singo_cnt:
+        if singo_cnt[check] >= k:
+            for name in id_list:
+                if check in singo_set[name]:
+                    find_mail_id[name] += 1
+    for find_id in find_mail_id:
+        answer.append(find_mail_id[find_id])
     return answer
