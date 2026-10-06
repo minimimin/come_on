@@ -1,7 +1,10 @@
-from collections import deque
 def solution(arr):
-    answer = deque()
+    answer = []
+    now_num = -1
     for i in arr:
-        if not answer or i != answer[-1]:
+        if now_num == i:
+            continue
+        else:
+            now_num = i
             answer.append(i)
-    return list(answer)
+    return answer
