@@ -17,16 +17,21 @@ def solution(N, number):
     
     # 각 갯수별 나올 수 있는 조합 구하기
     for idx in range(3, 9):
+        if number in make_set[idx-1]:
+            return idx
         for case in range(1, idx):
             for fir in make_set[case-1]:
                 for sec in make_set[idx-case-1]:
                     if fir+sec == number or fir-sec == number or fir*sec == number:
                         return idx
-                    elif not fir or not sec:
+                    elif not sec:
                         make_set[idx-1].update([fir+sec,fir-sec,fir*sec,0])
                     else:
-                        if fir//sec == number:
-                            return idx
-                        make_set[idx-1].update([fir+sec,fir-sec,fir*sec,fir//sec])
+                        if not fir%sec:
+                            if fir//sec == number:
+                                return idx
+                            make_set[idx-1].update([fir+sec,fir-sec,fir*sec,fir//sec])
+                        else:
+                            make_set[idx-1].update([fir+sec,fir-sec,fir*sec])
 
     return -1
