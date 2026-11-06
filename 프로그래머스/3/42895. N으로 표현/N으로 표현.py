@@ -1,5 +1,4 @@
 def solution(N, number):
-    
     if N == number:
         return 1
     
@@ -8,13 +7,6 @@ def solution(N, number):
     make_set = [set([int(str(N)*i)]) for i in range(1, 9)]
     
     # 1개 사용, 2개 사용, 3개 사용(=1개 사용과 2개 사용 조합), 앞으로 그 이후 조합들은 그만큼의 것들 더해서 계산
-    
-    # 2개 사용했을 때 나올 수 있는 연산값들 구하기
-    # if N+N == number or N-N == number or N*N == number or N//N == number or int(str(N)*2) == number:
-    #     return 2
-    # else:
-    #     make_set[1].update([N+N,N-N,N*N,N//N])
-    
     # 각 갯수별 나올 수 있는 조합 구하기
     for idx in range(2, 9):
         if number in make_set[idx-1]:
