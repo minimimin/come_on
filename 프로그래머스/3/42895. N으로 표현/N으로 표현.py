@@ -30,10 +30,7 @@ def solution(N, number):
                     # 뺄셈
                     if fir-sec == number or sec-fir == number:
                         return idx
-                    if fir-sec > 0:
-                        make_set[idx-1].add(fir-sec)
-                    else:
-                        make_set[idx-1].add(sec-fir)
+                    make_set[idx-1].update([fir-sec,sec-fir])
                             
                     # 나눗셈
                     if not sec or not fir:
