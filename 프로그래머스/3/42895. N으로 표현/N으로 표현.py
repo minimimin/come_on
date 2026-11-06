@@ -19,19 +19,33 @@ def solution(N, number):
     for idx in range(3, 9):
         if number in make_set[idx-1]:
             return idx
-        for case in range(1, idx):
+        for case in range(1, (idx//2)+1):
             for fir in make_set[case-1]:
                 for sec in make_set[idx-case-1]:
-                    if fir+sec == number or fir-sec == number or fir*sec == number:
+                    # 덧셈 및 곱셈
+                    if fir+sec == number or fir*sec == number:
                         return idx
-                    elif not sec:
-                        make_set[idx-1].update([fir+sec,fir-sec,fir*sec,0])
+                    make_set[idx-1].update([fir+sec,fir*sec])
+                    
+                    # 뺄셈
+                    if fir-sec == number or sec-fir == number:
+                        return idx
+                    if fir-sec > 0:
+                        make_set[idx-1].add(fir-sec)
+                    else:
+                        make_set[idx-1].add(sec-fir)
+                            
+                    # 나눗셈
+                    if not sec or not fir:
+                        make_set[idx-1].add(0)
                     else:
                         if not fir%sec:
                             if fir//sec == number:
                                 return idx
-                            make_set[idx-1].update([fir+sec,fir-sec,fir*sec,fir//sec])
-                        else:
-                            make_set[idx-1].update([fir+sec,fir-sec,fir*sec])
+                            make_set[idx-1].add(fir//sec)
+                        if not sec%fir:
+                            if sec//fir == number:
+                                return idx
+                            make_set[idx-1].add(sec//fir)
 
     return -1
